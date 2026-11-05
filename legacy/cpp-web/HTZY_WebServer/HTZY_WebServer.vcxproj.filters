@@ -1,0 +1,196 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Web内容">
+      <UniqueIdentifier>{d9e39185-e1f9-4b92-8627-4069ddce9eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="动态库">
+      <UniqueIdentifier>{3f503bbf-6e8e-4abd-8704-86097c9130b7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpServer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="index_dbtest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dashborad_dbtest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="crow.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\app.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\ci_map.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\common.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\compression.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\exceptions.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\http_connection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\http_parser_merged.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\http_request.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\http_response.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\http_server.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\json.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\logging.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\middleware.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\middleware_context.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\mime_types.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\multipart.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\multipart_view.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\mustache.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\parser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\query_string.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\returnable.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\routing.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\settings.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\socket_acceptors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\socket_adaptors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\task_timer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\TinySHA1.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\utility.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\version.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\websocket.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\middlewares\cookie_parser.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\middlewares\cors.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\middlewares\session.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="crow\middlewares\utf-8.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="httplib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HTZY_WebServer.slnx" />
+    <None Include="packages.config" />
+    <None Include="libcrypto-3-x64.dll">
+      <Filter>动态库</Filter>
+    </None>
+    <None Include="libssl-3-x64.dll">
+      <Filter>动态库</Filter>
+    </None>
+    <None Include="mysqlcppconn-10-vs14.dll">
+      <Filter>动态库</Filter>
+    </None>
+    <None Include="mysqlcppconnx-2-vs14.dll">
+      <Filter>动态库</Filter>
+    </None>
+    <None Include="page\dashborad.html">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\Final_Version.js">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\profile.css">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\styles.css">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\user-center.js">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\index.html">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="redGuide.js">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\login.html">
+      <Filter>Web内容</Filter>
+    </None>
+    <None Include="page\register.html">
+      <Filter>Web内容</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,488 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">AI面试</h1>
+    <p class="text-gray-600">请在规定时间内回答问题，系统将实时分析您的表现。</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- 左侧 - 视频区域 -->
+    <div class="lg:col-span-2">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- 视频容器 -->
+            <div class="relative">
+                <video id="video-preview" class="w-full h-96 object-cover bg-gray-100" autoplay muted></video>
+                <canvas id="canvas" class="hidden absolute top-0 left-0 w-full h-full"></canvas>
+                
+                <!-- 视频控制按钮 -->
+                <div class="absolute bottom-4 right-4 flex space-x-2">
+                    <button id="toggle-camera" class="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full transition-all">
+                        <i class="fa fa-video-camera"></i>
+                    </button>
+                    <button id="toggle-microphone" class="bg-white/80 hover:bg-white text-gray-800 p-2 rounded-full transition-all">
+                        <i class="fa fa-microphone"></i>
+                    </button>
+                </div>
+                
+                <!-- 分析指标 -->
+                <div class="absolute top-4 left-4 bg-black/50 text-white p-3 rounded-md">
+                    <div class="text-sm font-medium mb-1">实时分析</div>
+                    <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                        <div>紧张程度: <span id="stress-level">--</span></div>
+                        <div>着装整洁: <span id="dressing-score">--</span></div>
+                        <div>眼神接触: <span id="eye-contact">--</span></div>
+                        <div>面部表情: <span id="facial-expression">--</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 语音分析 -->
+            <div class="p-4 border-t border-gray-200">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="text-sm font-medium text-gray-700">语音分析</h3>
+                    <div class="flex items-center">
+                        <span id="recording-indicator" class="inline-block w-3 h-3 bg-red-500 rounded-full animate-pulse mr-2"></span>
+                        <span class="text-xs text-gray-500">正在录音</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-xs text-gray-600">
+                    <div>普通话水平: <span id="mandarin-level">--</span></div>
+                    <div>声音稳定性: <span id="voice-stability">--</span></div>
+                    <div>回答清晰度: <span id="clarity-level">--</span></div>
+                    <div>语言组织: <span id="organization-level">--</span></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 语音转文字 -->
+        <div class="bg-white rounded-lg shadow-md p-4 mt-6">
+            <h3 class="text-sm font-medium text-gray-700 mb-2">您的回答</h3>
+            <div id="transcript" class="min-h-[100px] p-3 bg-gray-50 rounded-md text-gray-800">
+                <p class="text-gray-400 italic">开始回答后，您的语音将自动转换为文字显示在这里...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 右侧 - 问题区域 -->
+    <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h3 class="text-lg font-medium text-gray-800">面试问题</h3>
+                <div class="flex items-center">
+                    <span id="question-number" class="text-sm font-medium text-gray-700">问题 1/20</span>
+                </div>
+            </div>
+            
+            <!-- 问题计时器 -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-1">
+                    <span class="text-sm text-gray-600">剩余时间</span>
+                    <span id="time-left" class="text-sm font-medium text-gray-800">60秒</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="timer-bar" class="bg-primary h-2.5 rounded-full" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <!-- 问题内容 -->
+            <div class="mb-6">
+                <h4 id="question-text" class="text-gray-800 font-medium">正在加载问题...</h4>
+                <div class="mt-2 flex items-center">
+                    <span id="question-type" class="inline-block px-2 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded">加载中</span>
+                    <span class="mx-2 text-gray-300">|</span>
+                    <span class="text-xs text-gray-500">难度: </span>
+                    <div class="flex ml-1" id="difficulty-stars">
+                        <i class="fa fa-star text-yellow-400 text-xs"></i>
+                        <i class="fa fa-star-o text-gray-300 text-xs"></i>
+                        <i class="fa fa-star-o text-gray-300 text-xs"></i>
+                        <i class="fa fa-star-o text-gray-300 text-xs"></i>
+                        <i class="fa fa-star-o text-gray-300 text-xs"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="flex justify-between">
+                <button id="skip-question" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-all">跳过问题</button>
+                <button id="next-question" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-all">下一题</button>
+            </div>
+        </div>
+
+        <!-- 面试进度 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mt-6">
+            <h3 class="text-sm font-medium text-gray-700 mb-4">面试进度</h3>
+            <div class="grid grid-cols-5 gap-2" id="progress-container"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const interview_id = {{ interview_id }};
+let stream = null;
+let cameraEnabled = true;
+let microphoneEnabled = true;
+let currentQuestion = 1;
+let questions = [];
+let totalQuestions = 0;
+let timeLeft = 60;
+let timerInterval = null;
+let recognition = null;
+let frameInterval = null;          // 定时器 ID（setTimeout 句柄）
+let frameNumber = 0;               // 帧序号
+let isEndingInterview = false;     // 防重入锁：防止多次触发结束面试
+let isSavingAnswer = false;        // 防重入锁：防止 nextQuestion 并发导致两次 saveAnswer
+let lastFramePromise = null;       // 最后一个帧分析请求的 Promise，用于 endInterview 等待
+
+// 页面初始化
+document.addEventListener('DOMContentLoaded', async function() {
+    // 自动开始面试
+    try {
+        let startRes = await fetch(`/api/interviews/${interview_id}/start`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        let startData = await startRes.json();
+        console.log("自动开始面试：", startData);
+    } catch (e) {
+        console.log("开始面试（忽略重复）");
+    }
+
+    await fetchQuestions();
+    initMedia();
+    bindEvents();
+});
+
+// 获取题目（原代码不变）
+async function fetchQuestions() {
+    try {
+        const res = await fetch(`/api/interviews/${interview_id}/questions`);
+        if (!res.ok) throw new Error('接口请求失败');
+        const data = await res.json();
+        questions = Array.isArray(data) ? data : [];
+        totalQuestions = questions.length;
+
+        if (totalQuestions === 0) {
+            document.getElementById('question-text').textContent = '未生成题目，请返回重试';
+            return;
+        }
+
+        renderProgressDots();
+        loadQuestion(1);
+    } catch (err) {
+        console.error('获取题目失败:', err);
+        document.getElementById('question-text').textContent = '加载题目失败';
+    }
+}
+
+// 加载指定题目（原代码不变）
+function loadQuestion(num) {
+    if (num > totalQuestions) { endInterview(); return; }
+    currentQuestion = num;
+    const q = questions[num - 1];
+    if (!q) {
+        document.getElementById('question-text').textContent = '题目不存在';
+        return;
+    }
+
+    document.getElementById('question-number').textContent = `问题 ${num}/${totalQuestions}`;
+    document.getElementById('question-text').textContent = q.text || '无题目';
+    document.getElementById('question-type').textContent = q.type || '通用题';
+    renderStars(q.difficulty || 1);
+    resetTimer();
+    updateProgress();
+}
+
+// 渲染难度星星（原代码不变）
+function renderStars(diff) {
+    const container = document.getElementById('difficulty-stars');
+    let html = '';
+    for (let i = 1; i <= 5; i++) {
+        html += i <= diff
+            ? '<i class="fa fa-star text-yellow-400 text-xs"></i>'
+            : '<i class="fa fa-star-o text-gray-300 text-xs"></i>';
+    }
+    container.innerHTML = html;
+}
+
+// 渲染进度点（原代码不变）
+function renderProgressDots() {
+    const container = document.getElementById('progress-container');
+    container.innerHTML = '';
+    for (let i = 1; i <= totalQuestions; i++) {
+        const div = document.createElement('div');
+        div.className = 'aspect-square bg-gray-100 rounded-md flex items-center justify-center text-xs text-gray-500 cursor-pointer';
+        div.textContent = i;
+        div.addEventListener('click', () => handleProgressClick(i));
+        container.appendChild(div);
+    }
+}
+
+// 更新进度高亮（原代码不变）
+function updateProgress() {
+    const dots = document.querySelectorAll('#progress-container > div');
+    dots.forEach((dot, i) => {
+        const qn = i + 1;
+        dot.classList.remove('bg-primary', 'text-white', 'bg-green-100', 'text-green-800', 'bg-gray-100', 'text-gray-500');
+        if (qn < currentQuestion) dot.classList.add('bg-green-100', 'text-green-800');
+        else if (qn === currentQuestion) dot.classList.add('bg-primary', 'text-white');
+        else dot.classList.add('bg-gray-100', 'text-gray-500');
+    });
+}
+
+// 进度点点击（原代码不变）
+function handleProgressClick(qn) {
+    if (qn < currentQuestion) {
+        if (confirm(`确定跳转到问题 ${qn}？当前回答将不会保存`)) {
+            currentQuestion = qn;
+            loadQuestion(qn);
+        }
+    } else if (qn > currentQuestion) {
+        alert(`请按顺序回答，当前应回答问题 ${currentQuestion}`);
+    }
+}
+
+// 计时器重置（原代码不变）
+function resetTimer() {
+    clearInterval(timerInterval);
+    timeLeft = 60;
+    const bar = document.getElementById('timer-bar');
+    bar.style.width = '100%';
+    bar.classList.remove('bg-red-500');
+    document.getElementById('time-left').textContent = '60秒';
+
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        const per = (timeLeft / 60) * 100;
+        document.getElementById('time-left').textContent = `${timeLeft}秒`;
+        bar.style.width = `${per}%`;
+        if (timeLeft <= 10) bar.classList.add('bg-red-500');
+        if (timeLeft <= 0) { clearInterval(timerInterval); nextQuestion(); }
+    }, 1000);
+}
+
+// 下一题 / 跳过
+async function nextQuestion() {
+    if (isSavingAnswer) return;       // 防重入：计时器与手动点击同时触发时只执行一次
+    isSavingAnswer = true;
+    try {
+        await saveAnswer();
+    } catch (e) {
+        console.error('保存回答失败:', e);
+    } finally {
+        isSavingAnswer = false;
+    }
+    loadQuestion(currentQuestion + 1);
+}
+async function skipQuestion() {
+    if (confirm('确定跳过该问题？')) await nextQuestion();
+}
+
+// 保存当前回答（原代码不变）
+async function saveAnswer() {
+    const text = document.getElementById('transcript').textContent.trim();
+    if (!text || text.includes('自动转换')) return;
+    const q = questions[currentQuestion - 1];
+    if (!q || !q.id) return;
+
+    try {
+        await fetch(`/api/interviews/${interview_id}/answers`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question_id: q.id, answer_text: text })
+        });
+    } catch (err) {
+        console.error('保存回答失败:', err);
+    }
+}
+
+// 结束面试
+async function endInterview() {
+    // 防重入：防止计时器超时与手动点击同时触发
+    if (isEndingInterview) return;
+    isEndingInterview = true;
+
+    // 立即停止所有后台任务，避免后续帧请求与 end 请求并发
+    clearInterval(timerInterval);
+    if (frameInterval) { clearTimeout(frameInterval); frameInterval = null; }
+    // 不再调度新帧
+    if (recognition) { recognition.onend = null; recognition.stop(); }
+    if (stream) stream.getTracks().forEach(t => t.stop());
+
+    // 等待最后一个帧分析请求完成，避免与 end 请求并发到达后端
+    if (lastFramePromise) {
+        try { await lastFramePromise; } catch (e) { /* 忽略已有错误 */ }
+        lastFramePromise = null;
+    }
+
+    // 等待最后一次回答保存完成后再结束
+    await saveAnswer();
+
+    fetch(`/api/interviews/${interview_id}/end`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log("面试结束成功", data);
+        window.location.href = `/results/${interview_id}`;
+    })
+    .catch(err => {
+        console.error("结束面试失败", err);
+        isEndingInterview = false;   // 失败时解锁，允许重试
+        alert("结束面试失败，请重试");
+    });
+}
+
+// 初始化摄像头和麦克风（增加启动帧发送）
+async function initMedia() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        document.getElementById('video-preview').srcObject = stream;
+        startSpeechRecognition();
+        startFrameCapture(); // 开始捕获视频帧
+    } catch (err) {
+        console.error('获取媒体权限失败:', err);
+        alert('请允许摄像头和麦克风权限，否则无法进行面试');
+    }
+}
+
+// ========== 新增：视频帧捕获与发送 ==========
+function startFrameCapture() {
+    // 清除旧的定时器（改为 setTimeout 递归，不用 setInterval）
+    if (frameInterval) { clearTimeout(frameInterval); frameInterval = null; }
+    scheduleNextFrame();
+}
+
+// 用递归 setTimeout 代替 setInterval，确保上一帧完成后再发下一帧
+function scheduleNextFrame() {
+    if (isEndingInterview) return;   // 正在结束面试，不再调度新帧
+    frameInterval = setTimeout(async () => {
+        lastFramePromise = captureAndSendFrame();   // 保存完整 Promise
+        await lastFramePromise;
+        scheduleNextFrame();                        // 完成后再调度下一帧
+    }, 5000);
+}
+
+async function captureAndSendFrame() {
+    if (isEndingInterview) return;   // 正在结束，不再发送
+
+    const video = document.getElementById('video-preview');
+    if (!video || video.readyState < 2) return; // 视频未就绪
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    if (canvas.width === 0 || canvas.height === 0) return;
+
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/jpeg', 0.8);
+
+    frameNumber++;
+    const timestamp = Date.now();
+
+    try {
+        const res = await fetch(`/api/interviews/${interview_id}/analyze_face`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                frame_number: frameNumber,
+                timestamp: timestamp,
+                image: imageData
+            })
+        });
+        const analysis = await res.json();
+        updateFacialAnalysis(analysis);
+    } catch (err) {
+        console.error('发送视频帧失败:', err);
+    }
+}
+
+function updateFacialAnalysis(data) {
+    // 更新页面上的四个指标
+    if (data.紧张程度 !== undefined) {
+        document.getElementById('stress-level').textContent = data.紧张程度;
+    }
+    if (data.着装整洁度 !== undefined) {
+        document.getElementById('dressing-score').textContent = data.着装整洁度;
+    }
+    if (data.眼神接触 !== undefined) {
+        document.getElementById('eye-contact').textContent = data.眼神接触;
+    }
+    if (data.面部表情 !== undefined) {
+        document.getElementById('facial-expression').textContent = data.面部表情;
+    }
+}
+// ========== 新增结束 ==========
+
+// 切换摄像头（原代码不变）
+function toggleCamera() {
+    if (!stream) return;
+    cameraEnabled = !cameraEnabled;
+    const track = stream.getVideoTracks()[0];
+    if (track) track.enabled = cameraEnabled;
+    const btn = document.getElementById('toggle-camera');
+    btn.innerHTML = cameraEnabled
+        ? '<i class="fa fa-video-camera"></i>'
+        : '<i class="fa fa-video-camera-slash"></i>';
+}
+
+// 切换麦克风（原代码不变）
+function toggleMicrophone() {
+    if (!stream) return;
+    microphoneEnabled = !microphoneEnabled;
+    const track = stream.getAudioTracks()[0];
+    if (track) track.enabled = microphoneEnabled;
+    const btn = document.getElementById('toggle-microphone');
+    btn.innerHTML = microphoneEnabled
+        ? '<i class="fa fa-microphone"></i>'
+        : '<i class="fa fa-microphone-slash"></i>';
+}
+
+// 启动语音识别（原代码不变）
+function startSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+        alert('您的浏览器不支持语音识别，请使用 Chrome/Edge 浏览器');
+        return;
+    }
+
+    recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.lang = 'zh-CN';
+
+    let finalTranscript = '';
+    recognition.onresult = (e) => {
+        let interim = '';
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+            const t = e.results[i][0].transcript;
+            e.results[i].isFinal ? finalTranscript += t : interim += t;
+        }
+        const el = document.getElementById('transcript');
+        el.innerHTML = finalTranscript + '<span class="text-gray-400">' + interim + '</span>';
+    };
+
+    recognition.onerror = (e) => {
+        console.error('语音识别错误:', e.error);
+        setTimeout(() => recognition.start(), 1000);
+    };
+
+    recognition.onend = () => {
+        if (currentQuestion <= totalQuestions) recognition.start();
+    };
+
+    recognition.start();
+}
+
+// 绑定按钮事件（原代码不变）
+function bindEvents() {
+    document.getElementById('toggle-camera').addEventListener('click', toggleCamera);
+    document.getElementById('toggle-microphone').addEventListener('click', toggleMicrophone);
+    document.getElementById('next-question').addEventListener('click', nextQuestion);
+    document.getElementById('skip-question').addEventListener('click', skipQuestion);
+}
+</script>
+{% endblock %}

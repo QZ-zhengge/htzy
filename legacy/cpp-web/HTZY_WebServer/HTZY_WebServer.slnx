@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="HTZY_WebServer.vcxproj" Id="3ba512dd-b12e-48f7-9ace-788b5a4509ff" />
+</Solution>

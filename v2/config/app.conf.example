@@ -1,0 +1,52 @@
+{
+  "server": {
+    "host": "0.0.0.0",
+    "port": 80,
+    "static_dir": "./frontend/dist",
+    "jwt_secret": "CHANGE_ME"
+  },
+  "database": {
+    "host": "127.0.0.1",
+    "port": 3306,
+    "user": "root",
+    "password": "CHANGE_ME",
+    "dbname": "htzy",
+    "pool_size": 8,
+    "auto_init": true
+  },
+  "ai": {
+    "deepseek": {
+      "api_key": "CHANGE_ME",
+      "base_url": "https://api.deepseek.com/v1/chat/completions",
+      "model": "deepseek-flash"
+    }
+  },
+  "smtp": {
+    "host": "smtp.163.com",
+    "port": 465,
+    "user": "user@example.com",
+    "password": "CHANGE_ME",
+    "from_name": "红途职引"
+  },
+  "interview": {
+    "question_count": 20,
+    "time_per_question_sec": 60,
+    "frame_capture_interval_ms": 1000,
+    "weights": {
+      "professional": 0.4,
+      "language": 0.3,
+      "expression": 0.3
+    },
+    "pass_score": 60.0
+  },
+  "auto_delivery": {
+    "daily_limit_per_company": 20,
+    "daily_limit_per_student": 5,
+    "interval_hours": 2,
+    "start_hour": 8
+  },
+  "logging": {
+    "level": "info",
+    "file": ""
+  }
+}

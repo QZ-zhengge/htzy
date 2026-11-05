@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-[calc(100vh-12rem)]">
+    <div class="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="bg-gradient p-6 text-white">
+            <h2 class="text-2xl font-bold text-center">注册</h2>
+            <p class="text-center mt-2 opacity-90">创建账户开始您的AI面试之旅</p>
+        </div>
+        
+        <div class="p-8">
+            <form id="register-form" class="space-y-6">
+                <div>
+                    <label for="username" class="block text-gray-700 text-sm font-medium mb-2">用户名</label>
+                    <input type="text" id="username" name="username" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入用户名" required>
+                </div>
+                
+                <div>
+                    <label for="email" class="block text-gray-700 text-sm font-medium mb-2">邮箱</label>
+                    <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入邮箱" required>
+                </div>
+                
+                <div>
+                    <label for="password" class="block text-gray-700 text-sm font-medium mb-2">密码</label>
+                    <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请输入密码" required>
+                </div>
+                
+                <div>
+                    <label for="confirm-password" class="block text-gray-700 text-sm font-medium mb-2">确认密码</label>
+                    <input type="password" id="confirm-password" name="confirm-password" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent" placeholder="请再次输入密码" required>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="terms" name="terms" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" required>
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        我同意 <a href="#" class="text-primary hover:text-primary/80">服务条款</a> 和 <a href="#" class="text-primary hover:text-primary/80">隐私政策</a>
+                    </label>
+                </div>
+                
+                <div>
+                    <button type="submit" class="w-full bg-primary text-white py-2 px-4 rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all">
+                        注册
+                    </button>
+                </div>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    已有账户? <a href="{{ url_for('login_page') }}" class="text-primary hover:text-primary/80 font-medium">立即登录</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('register-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm-password').value;
+        
+        // 验证密码
+        if (password !== confirmPassword) {
+            showToast('两次输入的密码不一致', 'error');
+            return;
+        }
+        
+        try {
+            const result = await apiRequest('/api/users/register', 'POST', { 
+                username, 
+                email, 
+                password 
+            });
+            
+            showToast('注册成功', 'success');
+            
+            // 重定向到仪表盘
+            setTimeout(() => {
+                window.location.href = "{{ url_for('dashboard') }}";
+            }, 1500);
+        } catch (error) {
+            console.error('注册失败:', error);
+        }
+    });
+</script>
+{% endblock %}

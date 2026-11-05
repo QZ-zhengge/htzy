@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">AI助手</string>
+    <string name="new_topic">新话题</string>
+    <string name="new_topic_divider">新话题</string>
+    <string name="input_hint">输入消息...</string>
+    <string name="send">发送</string>
+</resources>

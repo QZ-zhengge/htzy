@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红途职引 - 用户中心</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <a href="index.html" class="back-home-btn" title="返回首页">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h3><i class="fas fa-road me-2"></i>红途职引</h3>
+        </div>
+        <div class="nav-menu mt-4">
+            <div class="nav-item active" data-section="basic-info">
+                <i class="fas fa-user"></i> 基本信息
+            </div>
+            <div class="nav-item" data-section="resume">
+                <i class="fas fa-file-alt"></i> 个人简历
+            </div>
+            <div class="nav-item" data-section="history">
+                <i class="fas fa-history"></i> 历史记录
+            </div>
+            <div class="nav-item" data-section="analysis">
+                <i class="fas fa-chart-pie"></i> 数据分析
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <!-- 基本信息模块 -->
+        <div id="basic-info" class="content-section active">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-id-card me-2"></i>个人信息
+                </div>
+                <div class="card-body">
+                    <div class="profile-section">
+                        <div class="avatar-upload mb-3">
+                            <div class="default-avatar" id="user-avatar">张</div>
+                            <div class="upload-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <input type="file" id="avatar-input" accept="image/*">
+                        </div>
+
+                        <h4 id="user-name-display">张三</h4>
+                        <p class="text-muted" id="user-title-display">高级软件工程师</p>
+
+                        <div class="profile-info">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="editable-field mb-2">
+                                        <p>
+                                            <strong><i class="fas fa-user me-2"></i>用户名:</strong> <span id="username-text">zhangsan</span>
+                                            <i class="fas fa-edit edit-icon" data-field="username"></i>
+                                        </p>
+                                        <input type="text" class="edit-input" id="username-input" value="zhangsan">
+                                    </div>
+                                    <div class="editable-field mb-2">
+                                        <p>
+                                            <strong><i class="fas fa-envelope me-2"></i>邮箱:</strong> <span id="email-text">zhangsan@example.com</span>
+                                            <i class="fas fa-edit edit-icon" data-field="email"></i>
+                                        </p>
+                                        <input type="email" class="edit-input" id="email-input" value="zhangsan@example.com">
+                                    </div>
+                                    <div class="editable-field">
+                                        <p>
+                                            <strong><i class="fas fa-phone me-2"></i>电话:</strong> <span id="phone-text">13800138000</span>
+                                            <i class="fas fa-edit edit-icon" data-field="phone"></i>
+                                        </p>
+                                        <input type="tel" class="edit-input" id="phone-input" value="13800138000">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><strong><i class="fas fa-calendar-alt me-2"></i>注册时间:</strong> <span id="register-time">2022-01-15</span></p>
+                                    <p><strong><i class="fas fa-clock me-2"></i>最后登录:</strong> <span id="last-login">2023-04-20 14:30</span></p>
+                                    <p><strong><i class="fas fa-briefcase me-2"></i>面试次数:</strong> <span id="interview-count">12</span></p>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <div class="editable-field">
+                                        <h5><i class="fas fa-info-circle me-2"></i>个人简介</h5>
+                                        <p id="bio-text">5年以上软件开发经验，精通Java、Python和前端技术，熟悉分布式系统设计，有丰富的团队管理经验。热衷于技术创新和解决复杂问题。</p>
+                                        <i class="fas fa-edit edit-icon" data-field="bio"></i>
+                                        <textarea class="edit-input" id="bio-input" rows="3">5年以上软件开发经验，精通Java、Python和前端技术，熟悉分布式系统设计，有丰富的团队管理经验。热衷于技术创新和解决复杂问题。</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div><i class="fas fa-tags me-2"></i>技能标签</div>
+                    <button class="btn btn-sm btn-outline-primary" id="add-skill-btn">
+                        <i class="fas fa-plus me-1"></i>添加技能
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap" id="skills-container">
+                        <input type="text" class="form-control form-control-sm add-skill-input" id="new-skill-input" placeholder="输入技能">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 简历模块 -->
+        <div id="resume" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-file-alt me-2"></i>简历编辑
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>提示：点击下方区域可直接编辑简历内容
+                    </div>
+                    <div class="resume-editor" contenteditable="true" id="resume-content">
+                        <h2>张三</h2>
+                        <p>高级软件工程师 | 5年经验</p>
+                        <hr>
+                        <h3><i class="fas fa-address-card me-2"></i>联系方式</h3>
+                        <p>电话: 13800138000 | 邮箱: zhangsan@example.com | 微信: zhangsan123</p>
+                        <h3><i class="fas fa-graduation-cap me-2"></i>教育背景</h3>
+                        <p><strong>清华大学</strong> - 计算机科学与技术 (2014-2018)</p>
+                        <ul><li>GPA: 3.8/4.0</li></ul>
+                        <h3><i class="fas fa-briefcase me-2"></i>工作经历</h3>
+                        <p><strong>ABC科技有限公司</strong> - 高级软件工程师 (2018-至今)</p>
+                        <ul><li>负责公司核心产品的架构设计和开发</li><li>带领5人团队完成多个重要项目</li></ul>
+                        <h3><i class="fas fa-code me-2"></i>专业技能</h3>
+                        <ul><li>精通Java、Python编程</li><li>熟悉Spring Boot、React等框架</li></ul>
+                    </div>
+                    <div class="mt-3 d-flex justify-content-between">
+                        <button class="btn btn-outline-secondary" id="export-pdf-btn">
+                            <i class="fas fa-file-pdf me-2"></i>导出PDF
+                        </button>
+                        <div>
+                            <button class="btn btn-outline-primary me-2" id="reset-resume-btn">
+                                <i class="fas fa-sync-alt me-2"></i>重置
+                            </button>
+                            <button class="btn btn-primary" id="save-resume-btn">
+                                <i class="fas fa-save me-2"></i>保存简历
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 历史记录模块 -->
+        <div id="history" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-history me-2"></i>面试历史记录
+                </div>
+                <div class="card-body">
+                    <div class="mb-3 d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">共<span id="total-history">12</span>次面试记录</h5>
+                        <div class="input-group" style="width: 300px;">
+                            <input type="text" class="form-control" id="history-search" placeholder="搜索公司或职位...">
+                            <button class="btn btn-outline-secondary" type="button" id="search-history-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="history-list" id="history-list-container"></div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-outline-primary" id="load-more-history">
+                            <i class="fas fa-arrow-down me-2"></i>加载更多
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 数据分析模块 - 雷达图容器已优化 -->
+        <div id="analysis" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-chart-pie me-2"></i>能力分析
+                </div>
+                <div class="card-body">
+                    <div class="date-selector d-flex align-items-center flex-wrap">
+                        <span class="me-3">选择时间范围:</span>
+                        <select class="form-select me-3" id="time-range-select" style="width: 200px;">
+                            <option value="2025-06" selected>2025年6月</option>
+                            <option value="2025-05">2025年5月</option>
+                            <option value="2025-04">2025年4月</option>
+                        </select>
+                        <button class="btn btn-outline-secondary me-2 time-range-btn" data-range="week">
+                            <i class="fas fa-calendar-week me-1"></i>本周
+                        </button>
+                        <button class="btn btn-outline-secondary me-2 time-range-btn" data-range="month">
+                            <i class="fas fa-calendar-month me-1"></i>本月
+                        </button>
+                        <button class="btn btn-outline-secondary time-range-btn" data-range="quarter">
+                            <i class="fas fa-calendar-alt me-1"></i>本季度
+                        </button>
+                    </div>
+
+                    <!-- 雷达图容器 - 确保高度足够 -->
+                    <div class="radar-chart-container" id="radarChart"></div>
+
+                    <h4 class="mt-4 mb-3"><i class="fas fa-chart-line me-2"></i>能力变化趋势</h4>
+                    <div class="trend-chart-container" id="trendChart"></div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-success text-white">
+                                    <i class="fas fa-thumbs-up me-2"></i>优势能力
+                                </div>
+                                <div class="card-body" id="strength-list"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card h-100">
+                                <div class="card-header bg-warning text-dark">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>待提升能力
+                                </div>
+                                <div class="card-body" id="weakness-list"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mt-4">
+                        <div class="card-header">
+                            <i class="fas fa-bullseye me-2"></i>能力提升建议
+                        </div>
+                        <div class="card-body" id="suggestion-content"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 岗位申请弹窗 -->
+    <div class="modal fade" id="jobApplyModal" tabindex="-1" aria-labelledby="jobApplyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header" style="background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue)); color: white;">
+                    <h5 class="modal-title" id="jobApplyModalLabel">
+                        <i class="fas fa-briefcase me-2"></i>岗位详情
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body" id="jobDetailContent">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">加载中...</span>
+                        </div>
+                        <p class="mt-2 text-muted">正在加载岗位详情...</p>
+                    </div>
+                </div>
+                <div class="modal-footer border-top">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times me-1"></i>关闭
+                    </button>
+                    <a href="#" id="jobApplyLink" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-external-link-alt me-1"></i>前往申请
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="user-center.js"></script>
+</body>
+</html>

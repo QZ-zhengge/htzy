@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-2">面试结果</h1>
+    <p class="text-gray-600">以下是您的面试表现分析和建议。</p>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- 左侧 - 总体评分 -->
+    <div class="lg:col-span-1">
+        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">总体评分</h2>
+            
+            <div class="flex justify-center mb-6">
+                <div class="relative w-40 h-40">
+                    <svg class="w-full h-full" viewBox="0 0 100 100">
+                        <!-- 背景圆 -->
+                        <circle cx="50" cy="50" r="45" fill="none" stroke="#e5e7eb" stroke-width="10"></circle>
+                        <!-- 进度圆 -->
+                        <circle id="overall-score-circle" cx="50" cy="50" r="45" fill="none" stroke="#1a56db" stroke-width="10" 
+                                stroke-dasharray="282.74" stroke-dashoffset="70.69" transform="rotate(-90 50 50)"></circle>
+                    </svg>
+                    <div class="absolute inset-0 flex flex-col items-center justify-center">
+                        <span id="overall-score" class="text-3xl font-bold text-gray-800">--</span>
+                        <span class="text-sm text-gray-500">总分</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-700">专业知识</span>
+                        <span id="professional-score" class="text-sm font-medium text-gray-700">--分</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="professional-bar" class="bg-blue-500 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-700">语言表达</span>
+                        <span id="language-score" class="text-sm font-medium text-gray-700">--分</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="language-bar" class="bg-green-500 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="flex justify-between mb-1">
+                        <span class="text-sm font-medium text-gray-700">表情管理</span>
+                        <span id="expression-score" class="text-sm font-medium text-gray-700">--分</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2">
+                        <div id="expression-bar" class="bg-purple-500 h-2 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 面试信息 -->
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h2 class="text-lg font-medium text-gray-800 mb-4">面试信息</h2>
+
+            <div class="space-y-3">
+                <div class="flex">
+                    <span class="text-sm text-gray-500 w-24">岗位:</span>
+                    <span id="job-position" class="text-sm text-gray-800">--</span>
+                </div>
+
+                <div class="flex">
+                    <span class="text-sm text-gray-500 w-24">日期:</span>
+                    <span id="interview-date" class="text-sm text-gray-800">--</span>
+                </div>
+
+                <div class="flex">
+                    <span class="text-sm text-gray-500 w-24">时长:</span>
+                    <span id="interview-duration" class="text-sm text-gray-800">--</span>
+                </div>
+
+                <div class="flex">
+                    <span class="text-sm text-gray-500 w-24">问题数量:</span>
+                    <span id="question-count" class="text-sm text-gray-800">--</span>
+                </div>
+            </div>
+
+            <div class="mt-6 flex justify-between">
+                <button id="download-report" class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md hover:bg-gray-50 transition-all">
+                    <i class="fa fa-download mr-2"></i>下载报告
+                </button>
+
+                <button id="new-interview" class="px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-all">
+                    <i class="fa fa-refresh mr-2"></i>再次面试
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 右侧 - 详细报告 -->
+    <div class="lg:col-span-2">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg font-medium text-gray-800">面试报告</h2>
+                <div class="flex items-center">
+                    <span id="result-status" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                        </svg>
+                        加载中...
+                    </span>
+                </div>
+            </div>
+
+            <!-- 报告内容容器 -->
+            <div id="report-content" class="prose max-w-none">
+                <p class="text-gray-500">正在加载面试报告...</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const interview_id = {{ interview_id }};
+
+// 从后端获取真实面试结果
+async function fetchInterviewResults() {
+    try {
+        const res = await fetch(`/api/interviews/${interview_id}/results`);
+        if (!res.ok) throw new Error('获取结果失败');
+        const data = await res.json();
+
+        // 1. 更新评分与圆环
+        const overall = data.overall_score || 0;
+        const professional = data.professional_score || 0;
+        const language = data.language_score || 0;
+        const expression = data.expression_score || 0;
+
+        document.getElementById('overall-score').textContent = overall.toFixed(1);
+        document.getElementById('professional-score').textContent = `${professional}分`;
+        document.getElementById('language-score').textContent = `${language}分`;
+        document.getElementById('expression-score').textContent = `${expression}分`;
+
+        document.getElementById('professional-bar').style.width = `${professional}%`;
+        document.getElementById('language-bar').style.width = `${language}%`;
+        document.getElementById('expression-bar').style.width = `${expression}%`;
+
+        // 圆环进度
+        const circumference = 2 * Math.PI * 45;
+        const offset = circumference - (overall / 100) * circumference;
+        const circle = document.getElementById('overall-score-circle');
+        circle.style.strokeDasharray = circumference;
+        circle.style.strokeDashoffset = offset;
+
+        // 2. 更新面试信息
+        document.getElementById('job-position').textContent = data.job_position || '未知岗位';
+        document.getElementById('interview-date').textContent = data.created_at || '未知时间';
+        document.getElementById('interview-duration').textContent = data.duration || '未知时长';
+        document.getElementById('question-count').textContent = `${data.question_count || 0}题`;
+
+        // 3. 更新状态
+        const statusEl = document.getElementById('result-status');
+        if (overall >= 60) {
+            statusEl.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800';
+            statusEl.innerHTML = `
+                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                </svg>
+                通过
+            `;
+        } else {
+            statusEl.className = 'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800';
+            statusEl.innerHTML = `
+                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                </svg>
+                未通过
+            `;
+        }
+
+        // 4. 渲染真实报告内容（DeepSeek 生成的 JSON/文本）
+        const reportContent = document.getElementById('report-content');
+        let reportHtml = '';
+
+        try {
+            // 如果 report 是 JSON 字符串，先解析
+            let report = data.report;
+            if (typeof report === 'string') {
+                try {
+                    report = JSON.parse(report);
+                } catch (e) {
+                    // report 是普通文本，直接渲染
+                    reportContent.innerHTML = `<div class="text-gray-700 whitespace-pre-wrap">${report}</div>`;
+                    return;
+                }
+            }
+
+            // ---- 以下均为 JSON 对象渲染 ----
+            if (report.面试概况) {
+                reportHtml += `<h3 class="text-md font-medium text-gray-800 mb-3">面试概况</h3>`;
+                reportHtml += `<p class="text-gray-700 mb-6">${report.面试概况}</p>`;
+            }
+
+            if (report.各项能力评估 && Object.keys(report.各项能力评估).length > 0) {
+                reportHtml += `<h3 class="text-md font-medium text-gray-800 mb-3">各维度分析</h3>`;
+                for (const [name, info] of Object.entries(report.各项能力评估)) {
+                    let color = 'blue';
+                    if (name.includes('语言')) color = 'green';
+                    if (name.includes('表情')) color = 'purple';
+
+                    // 兼容不同字段名：分数/score/得分
+                    const score = info.分数 ?? info.score ?? info.得分 ?? '--';
+                    // 兼容字符串与对象两种结构
+                    const advantage = typeof info === 'string' ? info :
+                        (info.优势 ?? info.advantage ?? info.strengths ?? '');
+                    const weakness = typeof info === 'string' ? '' :
+                        (info.不足 ?? info.weakness ?? info.weaknesses ?? '');
+
+                    reportHtml += `
+                        <div class="mb-6">
+                            <h4 class="text-sm font-medium text-gray-700 mb-2">${name}${score !== '--' ? ' (' + score + '分)' : ''}</h4>
+                            <div class="pl-4 border-l-2 border-${color}-500 text-gray-700">
+                                ${advantage ? `<p class="mb-2"><span class="font-medium">优势：</span>${advantage}</p>` : ''}
+                                ${weakness ? `<p><span class="font-medium">不足：</span>${weakness}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            if (report.优势 && report.优势.length) {
+                reportHtml += `<h3 class="text-md font-medium text-gray-800 mb-3">优势</h3>`;
+                reportHtml += `<ul class="list-disc pl-5 mb-6 text-gray-700">`;
+                report.优势.forEach(item => reportHtml += `<li>${item}</li>`);
+                reportHtml += `</ul>`;
+            }
+
+            if (report.不足 && report.不足.length) {
+                reportHtml += `<h3 class="text-md font-medium text-gray-800 mb-3">不足</h3>`;
+                reportHtml += `<ul class="list-disc pl-5 mb-6 text-gray-700">`;
+                report.不足.forEach(item => reportHtml += `<li>${item}</li>`);
+                reportHtml += `</ul>`;
+            }
+
+            if (report.改进建议 && report.改进建议.length) {
+                reportHtml += `<h3 class="text-md font-medium text-gray-800 mb-3">改进建议</h3>`;
+                reportHtml += `<div class="bg-blue-50 p-4 rounded-md">`;
+                reportHtml += `<ul class="list-disc pl-5 space-y-2 text-gray-700">`;
+                report.改进建议.forEach(item => reportHtml += `<li>${item}</li>`);
+                reportHtml += `</ul></div>`;
+            }
+
+            if (report.总体评价) {
+                reportHtml += `<h3 class="text-md font-medium text-gray-800 mb-3">总体评价</h3>`;
+                reportHtml += `<p class="text-gray-700">${report.总体评价}</p>`;
+            }
+
+            if (!reportHtml) {
+                // JSON 解析成功但字段全为空时，原样渲染
+                reportHtml = `<div class="text-gray-700 whitespace-pre-wrap">${JSON.stringify(report, null, 2)}</div>`;
+            }
+        } catch (e) {
+            // 最终兜底：直接渲染原始文本
+            reportHtml = `<div class="text-gray-700 whitespace-pre-wrap">${data.report || '报告数据为空'}</div>`;
+        }
+
+        reportContent.innerHTML = reportHtml;
+
+    } catch (err) {
+        console.error(err);
+        document.getElementById('report-content').innerHTML = '<p class="text-red-500">加载报告失败，请刷新重试</p>';
+    }
+}
+
+// 绑定事件
+document.addEventListener('DOMContentLoaded', () => {
+    fetchInterviewResults();
+
+    document.getElementById('download-report').addEventListener('click', () => {
+        alert('报告下载功能开发中');
+    });
+
+    document.getElementById('new-interview').addEventListener('click', () => {
+        window.location.href = '/dashboard';
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI面试系统 - 登录</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Tailwind 配置（与首页保持一致） -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a56db',
+                        secondary: '#9333ea',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        dark: '#111827',
+                        light: '#f3f4f6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+
+            .transition-all {
+                transition-property: all;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 300ms;
+            }
+
+            .shadow-lg {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+
+            .bg-gradient {
+                background: linear-gradient(135deg, #1a56db, #9333ea);
+            }
+
+            .rotate-180 {
+                transform: rotate(180deg);
+            }
+        }
+    </style>
+
+    <style>
+        /* 额外自定义样式 - 与首页保持一致 */
+        body {
+            background-color: #f3f4f6;
+        }
+
+        .toast-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+            padding: 12px 20px;
+            min-width: 240px;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+        }
+
+            .toast-message.show {
+                transform: translateX(0);
+            }
+
+            .toast-message.success {
+                border-left: 4px solid #10b981;
+            }
+
+            .toast-message.error {
+                border-left: 4px solid #ef4444;
+            }
+
+            .toast-message.warning {
+                border-left: 4px solid #f59e0b;
+            }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- 登录表单区域 -->
+    <div class="flex justify-center items-center min-h-[calc(100vh-12rem)] py-12">
+        <div class="w-full max-w-md bg-white rounded-lg shadow-lg overflow-hidden transition-all hover:shadow-xl">
+            <div class="bg-gradient p-6 text-white">
+                <div class="flex justify-center mb-4">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                        <i class="fa fa-sign-in text-2xl"></i>
+                    </div>
+                </div>
+                <h2 class="text-2xl font-bold text-center">登录</h2>
+                <p class="text-center mt-2 opacity-90">登录您的账户开始AI面试</p>
+            </div>
+
+            <div class="p-8">
+                <form id="login-form" class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-gray-700 text-sm font-medium mb-2">用户名</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="username" name="username" value="123456"
+                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                   placeholder="请输入用户名" required>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-gray-700 text-sm font-medium mb-2">密码</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fa fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="password" name="password" value="123456"
+                                   class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                                   placeholder="请输入密码" required>
+                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                <button type="button" id="toggle-password" class="text-gray-400 hover:text-gray-600 focus:outline-none">
+                                    <i class="fa fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <input type="checkbox" id="remember-me" name="remember-me" class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded">
+                            <label for="remember-me" class="ml-2 block text-sm text-gray-700">记住我</label>
+                        </div>
+                        <a href="#" class="text-sm text-primary hover:text-primary/80 transition-all">忘记密码?</a>
+                    </div>
+
+                    <div>
+                        <button type="submit"
+                                class="w-full bg-gradient text-white py-2 px-4 rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all font-medium">
+                            <i class="fa fa-sign-in mr-2"></i>登录
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-6 pt-4 border-t border-gray-200">
+                    <div class="text-center">
+                        <p class="text-sm text-gray-600">
+                            还没有账户? <a href="register.html" class="text-primary hover:text-primary/80 font-medium transition-all">立即注册</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Toast 通知组件（独立实现） -->
+    <div id="toast-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999;"></div>
+
+    <script>
+        // Toast 显示函数
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast-message ${type} bg-white rounded-lg shadow-lg px-4 py-3 mb-3 flex items-center`;
+            toast.style.transform = 'translateX(400px)';
+            toast.style.transition = 'transform 0.3s ease';
+
+            let icon = 'fa-check-circle';
+            if (type === 'error') icon = 'fa-exclamation-circle';
+            if (type === 'warning') icon = 'fa-exclamation-triangle';
+
+            toast.innerHTML = `
+                <i class="fa ${icon} mr-3 text-${type === 'success' ? 'green' : (type === 'error' ? 'red' : 'orange')}-500 text-lg"></i>
+                <span class="text-gray-800">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transform = 'translateX(0)';
+            }, 10);
+
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                setTimeout(() => {
+                    if (toast.parentNode) toast.parentNode.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+
+        // 模拟 API 请求 (注册接口)
+        async function apiRequest(url, method, data) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open('POST', url, true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify(data));
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === XMLHttpRequest.DONE) {
+                            if (xhr.status === 200) {
+                                let jsonObj = JSON.parse(xhr.responseText);
+                                resolve({ success: true, message: '登录成功，正在跳转...', token: jsonObj.token });
+                            }
+                            else {
+                                resolve({ success: false, message: '登录失败，请检查用户名或密码是否正确' });
+                            }
+                        }
+                    }
+                }, 600);
+            });
+        }
+
+        // 移动端菜单切换
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        if (mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', function() {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+        }
+
+        // 密码显示/隐藏切换
+        const togglePasswordBtn = document.getElementById('toggle-password');
+        if (togglePasswordBtn) {
+            togglePasswordBtn.addEventListener('click', function() {
+                const passwordInput = document.getElementById('password');
+                const icon = this.querySelector('i');
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+        }
+
+        // 登录表单提交
+        const loginForm = document.getElementById('login-form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const username = document.getElementById('username').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!username) {
+                    showToast('请输入用户名', 'error');
+                    return;
+                }
+                if (!password) {
+                    showToast('请输入密码', 'error');
+                    return;
+                }
+
+                // 禁用提交按钮防止重复提交
+                const submitBtn = loginForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin mr-2"></i>登录中...';
+
+                try {
+                    const result = await apiRequest('/api/users/login', 'POST', { username, password });
+                    if (result.success === true) {
+                        showToast(result.message, 'success');
+
+                        // 模拟存储token
+                        localStorage.setItem('auth_token', result.token);
+                        localStorage.setItem('username', username);
+
+                        setTimeout(() => {
+                            window.location.href = "dashborad.html";  // 假设仪表盘页面
+                        }, 1500);
+                    }
+                    else {
+                        showToast(result.message, 'error');
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = originalText;
+                    }
+                } catch (error) {
+                    console.error('登录失败:', error);
+                    const errorMsg = error.message || (error.response?.data?.message) || '用户名或密码错误';
+                    showToast(errorMsg, 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                }
+            });
+        }
+    </script>
+</body>
+</html>

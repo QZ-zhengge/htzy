@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>18.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{3ba512dd-b12e-48f7-9ace-788b5a4509ff}</ProjectGuid>
+    <RootNamespace>HTZYWebServer</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);include;</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);lib64;</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>Z:\HTZY\HTZY_Page\HTZY_WebServer\mysql-connector-c++-9.6.0-winx64-debug\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>mysqlcppconn.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>Z:\HTZY\HTZY_Page\HTZY_WebServer\mysql-connector-c++-9.6.0-winx64-debug\lib64\vs14;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>mysql-connector-c++-9.6.0-winx64-release\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>mysql-connector-c++-9.6.0-winx64-release\lib64\vs14;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>mysqlcppconn.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)*.dll" "$(TargetDir)" /Y
+xcopy "$(ProjectDir)page\" "$(TargetDir)page\" /E /Y</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dashborad_dbtest.cpp" />
+    <ClCompile Include="index_dbtest.cpp" />
+    <ClCompile Include="HttpServer.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="server.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="crow.h" />
+    <ClInclude Include="crow\app.h" />
+    <ClInclude Include="crow\ci_map.h" />
+    <ClInclude Include="crow\common.h" />
+    <ClInclude Include="crow\compression.h" />
+    <ClInclude Include="crow\exceptions.h" />
+    <ClInclude Include="crow\http_connection.h" />
+    <ClInclude Include="crow\http_parser_merged.h" />
+    <ClInclude Include="crow\http_request.h" />
+    <ClInclude Include="crow\http_response.h" />
+    <ClInclude Include="crow\http_server.h" />
+    <ClInclude Include="crow\json.h" />
+    <ClInclude Include="crow\logging.h" />
+    <ClInclude Include="crow\middleware.h" />
+    <ClInclude Include="crow\middlewares\cookie_parser.h" />
+    <ClInclude Include="crow\middlewares\cors.h" />
+    <ClInclude Include="crow\middlewares\session.h" />
+    <ClInclude Include="crow\middlewares\utf-8.h" />
+    <ClInclude Include="crow\middleware_context.h" />
+    <ClInclude Include="crow\mime_types.h" />
+    <ClInclude Include="crow\multipart.h" />
+    <ClInclude Include="crow\multipart_view.h" />
+    <ClInclude Include="crow\mustache.h" />
+    <ClInclude Include="crow\parser.h" />
+    <ClInclude Include="crow\query_string.h" />
+    <ClInclude Include="crow\returnable.h" />
+    <ClInclude Include="crow\routing.h" />
+    <ClInclude Include="crow\settings.h" />
+    <ClInclude Include="crow\socket_acceptors.h" />
+    <ClInclude Include="crow\socket_adaptors.h" />
+    <ClInclude Include="crow\task_timer.h" />
+    <ClInclude Include="crow\TinySHA1.hpp" />
+    <ClInclude Include="crow\utility.h" />
+    <ClInclude Include="crow\version.h" />
+    <ClInclude Include="crow\websocket.h" />
+    <ClInclude Include="httplib.h" />
+    <ClInclude Include="json.hpp">
+      <DeploymentContent>false</DeploymentContent>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="HTZY_WebServer.slnx" />
+    <None Include="libcrypto-3-x64.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="libssl-3-x64.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="mysqlcppconn-10-vs14.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="mysqlcppconnx-2-vs14.dll">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="packages.config" />
+    <None Include="page\dashborad.html" />
+    <None Include="page\Final_Version.js" />
+    <None Include="page\index.html">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="page\login.html">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="page\profile.css" />
+    <None Include="page\register.html">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="page\styles.css" />
+    <None Include="page\user-center.js" />
+    <None Include="redGuide.js" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets" Condition="Exists('packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets')" />
+    <Import Project="..\packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets" Condition="Exists('..\packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets'))" />
+    <Error Condition="!Exists('..\packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\asio-cppp-latest.1.24.0\build\native\asio-cppp-latest.targets'))" />
+  </Target>
+</Project>

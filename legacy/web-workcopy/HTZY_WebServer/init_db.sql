@@ -1,0 +1,56 @@
+---- 用户表
+--CREATE TABLE IF NOT EXISTS users (
+--    id INT AUTO_INCREMENT PRIMARY KEY,
+--    username VARCHAR(50) UNIQUE NOT NULL,
+--    password_hash VARCHAR(255) NOT NULL,
+--    email VARCHAR(100),
+--    phone VARCHAR(20),
+--    avatar VARCHAR(255),
+--    bio TEXT,
+--    register_time DATETIME DEFAULT CURRENT_TIMESTAMP,
+--    last_login DATETIME,
+--    interview_count INT DEFAULT 0
+--);
+
+---- 技能表
+--CREATE TABLE IF NOT EXISTS skills (
+--    id INT AUTO_INCREMENT PRIMARY KEY,
+--    user_id INT NOT NULL,
+--    skill_name VARCHAR(50) NOT NULL,
+--    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+--    UNIQUE KEY (user_id, skill_name)
+--);
+
+---- 简历表
+--CREATE TABLE IF NOT EXISTS resume (
+--    user_id INT PRIMARY KEY,
+--    content_html LONGTEXT,
+--    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+--    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+--);
+
+---- 面试历史表
+--CREATE TABLE IF NOT EXISTS interview_history (
+--    id INT AUTO_INCREMENT PRIMARY KEY,
+--    user_id INT NOT NULL,
+--    company VARCHAR(100),
+--    position VARCHAR(100),
+--    score DECIMAL(3,1),
+--    date DATE,
+--    status VARCHAR(20),
+--    stage VARCHAR(50),
+--    comment TEXT,
+--    strengths TEXT,
+--    improvements TEXT,
+--    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+--);
+
+---- 能力评分表（用于雷达图）
+--CREATE TABLE IF NOT EXISTS ability_scores (
+--    id INT AUTO_INCREMENT PRIMARY KEY,
+--    user_id INT NOT NULL,
+--    dimension VARCHAR(50),
+--    score DECIMAL(3,1),
+--    evaluate_date DATE,
+--    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+--);

@@ -1,0 +1,624 @@
+﻿<!--<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>红途职引 - 专业招聘平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+    <!-- 全局样式表 -->
+    <!--<link rel="stylesheet" href="styles.css">
+    <style>
+        /* 保证红色指引模块在未加载脚本前隐藏，避免闪烁 */
+        #redGuideModule {
+            display: none;
+        }
+        /* 导航栏红色指引激活样式 */
+        .nav-links a.red-active {
+            color: #dc2626;
+            font-weight: 600;
+            position: relative;
+        }
+
+            .nav-links a.red-active::after {
+                content: '';
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                width: 100%;
+                height: 2px;
+                background: #dc2626;
+                border-radius: 2px;
+            }
+    </style>
+</head>
+<body>-->
+
+    <!-- 导航栏（完全保持不变） -->
+    <!--<header>
+        <div class="container">
+            <div class="navbar">
+                <a href="javascript:;" class="logo" id="goHomeBtn"><i class="fas fa-road"></i>红途职引</a>
+                <div class="nav-links">
+                    <a href="javascript:;" id="navHome">首ssssss页</a>
+                    <a href="javascript:;">职位</a>
+                    <a href="javascript:;">公司</a>
+                    <a href="javascript:;">地区</a>
+                    <a href="javascript:;">行业</a>
+                    <a href="javascript:;" id="navRedGuide" style="font-weight: 600;">红色指引</a>
+                </div>
+                <div class="auth-buttons">
+                    <a href="#" class="user-avatar">
+                        <img src="https://picsum.photos/id/64/40/40" alt="用户">
+                    </a>
+                    <button class="btn btn-outline">登录</button>
+                    <button class="btn btn-primary">注册</button>
+                </div>
+            </div>
+        </div>
+    </header>-->
+
+    <!-- ========= 首页所有模块（初始显示） ========= -->
+    <!--<div id="homePageContainer">
+        <section class="hero">
+            <div class="container">
+                <h1>红途职引，指引您的职业未来</h1>
+                <p>基于行业和地区导向的精准匹配，助您找到最适合的工作</p>
+                <div class="search-container">
+                    <div class="search-box">
+                        <div class="search-input-container">
+                            <input type="text" class="search-input" placeholder="输入职位关键词、公司或行业">
+                        </div>
+                        <button class="search-btn"><i class="fas fa-search"></i> 搜索</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="filters">
+            <div class="container">
+                <div class="filter-container">
+                    <div class="filter-group">
+                        <div class="filter-title"><i class="fas fa-industry"></i>热门行业</div>
+                        <div class="filter-options" id="demoIndustries"></div>
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-title"><i class="fas fa-map-marker-alt"></i>热门地区</div>
+                        <div class="filter-options" id="demoRegions"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title"><i class="fas fa-briefcase"></i>推荐职位</h2>
+            <div class="jobs-grid" id="jobsDemoGrid"></div>
+        </section>
+
+        <section class="cities">
+            <div class="container">
+                <h2 class="section-title"><i class="fas fa-city"></i>热门招聘城市</h2>
+                <div class="cities-grid">
+                    <div class="city-card"><div class="city-image">北京</div><div class="city-content"><h3>北京</h3><p>12,458个职位</p></div></div>
+                    <div class="city-card"><div class="city-image">上海</div><div class="city-content"><h3>上海</h3><p>10,326个职位</p></div></div>
+                    <div class="city-card"><div class="city-image">深圳</div><div class="city-content"><h3>深圳</h3><p>8,745个职位</p></div></div>
+                    <div class="city-card"><div class="city-image">广州</div><div class="city-content"><h3>广州</h3><p>7,632个职位</p></div></div>
+                </div>
+            </div>
+        </section>
+    </div>-->
+
+    <!-- ========= 红色指引专属模块（初始隐藏，由 red.js 动态填充内容和控制） ========= -->
+    <!--<div id="redGuideModule" class="red-guide-wrapper">-->
+        <!-- 红色指引的内容会由 red.js 动态生成，但为了结构完整，保留容器骨架 -->
+        <!-- red.js 会渲染轮播图、故事卡片等内容 -->
+    <!--</div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <h3>关于我们</h3>
+                <p>红途职引是一家专注于行业和地区导向的专业招聘平台，致力于为求职者和企业提供高效、精准的招聘服务。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 红途职引招聘平台 - 所有权利保留</p>
+            </div>
+        </div>
+    </footer>-->
+
+    <!-- 先加载首页逻辑 final.js (负责首页数据展示和全局切换触发) -->
+    <!--<script src="Final_Version.js"></script>-->
+    <!-- 再加载红色指引专属逻辑 red.js (负责红色指引模块的渲染和交互，并暴露切换方法供 final.js 调用) -->
+    <!--<script src="redGuide.js"></script>
+</body>
+</html>-->
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>红途职引 - 专业招聘平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">-->
+<!-- 引入外部样式表 -->
+<!--<link rel="stylesheet" href="styles.css">
+</head>
+<body>-->
+<!-- 导航栏 -->
+<!--<header>
+    <div class="container">
+        <div class="navbar">
+            <a href="javascript:;" class="logo" id="goHomeBtn"><i class="fas fa-road"></i>红途职引</a>
+            <div class="nav-links">
+                <a href="javascript:;" id="navHome">首页</a>
+                <a href="javascript:;">职位</a>
+                <a href="javascript:;">公司</a>
+                <a href="javascript:;">地区</a>
+                <a href="javascript:;">行业</a>
+                <a href="javascript:;" id="navRedGuide" style="font-weight: 600;">红色指引</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="#" class="user-avatar">
+                    <img src="https://picsum.photos/id/64/40/40" alt="用户">
+                </a>
+                <button class="btn btn-outline" onclick="window.location.href='login.html'">登录</button>
+                <button class="btn btn-primary" onclick="window.location.href='register.html'">注册</button>
+            </div>
+        </div>
+    </div>
+</header>-->
+<!-- ========= 首页所有模块========= -->
+<!--<div id="homePageContainer">
+    <section class="hero">
+        <div class="container">
+            <h1>红途职引，指引您的职业未来</h1>
+            <p>基于行业和地区导向的精准匹配，助您找到最适合的工作</p>
+            <div class="search-container">
+                <div class="search-box">
+                    <div class="search-input-container">
+                        <input type="text" class="search-input" placeholder="输入职位关键词、公司或行业">
+                    </div>
+                    <button class="search-btn"><i class="fas fa-search"></i> 搜索</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="filters">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <div class="filter-title"><i class="fas fa-industry"></i>热门行业</div>
+                    <div class="filter-options" id="demoIndustries"></div>
+                </div>
+                <div class="filter-group">
+                    <div class="filter-title"><i class="fas fa-map-marker-alt"></i>热门地区</div>
+                    <div class="filter-options" id="demoRegions"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2 class="section-title"><i class="fas fa-briefcase"></i>推荐职位</h2>
+        <div class="jobs-grid" id="jobsDemoGrid"></div>
+    </section>
+
+    <section class="cities">
+        <div class="container">
+            <h2 class="section-title"><i class="fas fa-city"></i>热门招聘城市</h2>
+            <div class="cities-grid">
+                <div class="city-card"><div class="city-image">北京</div><div class="city-content"><h3>北京</h3><p>12,458个职位</p></div></div>
+                <div class="city-card"><div class="city-image">上海</div><div class="city-content"><h3>上海</h3><p>10,326个职位</p></div></div>
+                <div class="city-card"><div class="city-image">深圳</div><div class="city-content"><h3>深圳</h3><p>8,745个职位</p></div></div>
+                <div class="city-card"><div class="city-image">广州</div><div class="city-content"><h3>广州</h3><p>7,632个职位</p></div></div>
+            </div>
+        </div>
+    </section>
+</div>-->
+<!-- ========= 红色指引专属模块 ========= -->
+<!--<div id="redGuideModule" class="red-guide-wrapper">
+    <section class="red-guide-hero">
+        <div class="container">
+            <h1>红色指引 · 点亮职业征程</h1>
+            <p>传承红色基因，践行初心使命，为求职者提供有温度、有方向的职业指引，助力实现人生价值</p>
+        </div>
+    </section>
+
+    <div class="carousel-container">
+        <div class="carousel-slides" id="redCarouselSlides"></div>
+        <button class="carousel-btn prev-btn" id="redPrevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next-btn" id="redNextBtn"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-indicators" id="redIndicators"></div>
+    </div>
+
+    <section class="red-guide-content">
+        <div class="container">
+            <h2 class="section-title" style="color:#b91c1c; justify-content:center;"><i class="fas fa-flag"></i> 核心指引方向</h2>
+            <div class="content-grid" id="redStoriesGrid"></div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <h3>关于我们</h3>
+            <p>红途职引是一家专注于行业和地区导向的专业招聘平台，致力于为求职者和企业提供高效、精准的招聘服务。</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 红途职引招聘平台 - 所有权利保留</p>
+        </div>
+    </div>
+</footer>-->
+<!-- 引入外部JavaScript文件（模块化拆分） -->
+<!--<script src="script.js"></script>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红途职引 - 专业招聘平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* 红色指引页面专属样式 */
+        #redGuidePage {
+            display: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .red-hero {
+            background: linear-gradient(135deg, #c02626 0%, #dc2626 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            width: 100%;
+        }
+
+            .red-hero h1 {
+                font-size: 42px;
+                margin-bottom: 15px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+
+            .red-hero p {
+                font-size: 18px;
+                max-width: 800px;
+                margin: 0 auto 20px;
+                opacity: 0.95;
+            }
+
+        .carousel-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(192, 38, 38, 0.15);
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 450px;
+            position: relative;
+        }
+
+            .carousel-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(185, 28, 28, 0.85));
+            color: white;
+            padding: 30px;
+            border-radius: 0 0 12px 12px;
+        }
+
+            .carousel-caption h3 {
+                font-size: 28px;
+                margin-bottom: 10px;
+            }
+
+            .carousel-caption p {
+                font-size: 16px;
+                max-width: 800px;
+                opacity: 0.9;
+            }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            color: #b91c1c;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+            .carousel-btn:hover {
+                background: white;
+                color: #991b1b;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .indicator.active {
+                background: white;
+                width: 30px;
+                border-radius: 6px;
+            }
+
+        .red-guide-content {
+            padding: 60px 0;
+            background-color: #fff;
+            width: 100%;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .guide-card {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+            .guide-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(239, 68, 68, 0.1);
+                border-color: #f87171;
+            }
+
+        .guide-card-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .guide-card h3 {
+            font-size: 22px;
+            color: #b91c1c;
+            margin-bottom: 15px;
+        }
+
+        .guide-card p {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+ <!--导航栏--> 
+<header id="mainHeader">
+    <div class="container">
+        <div class="navbar">
+            <a href="javascript:;" class="logo" id="goHome"><i class="fas fa-road"></i>红途职引</a>
+            <div class="nav-links">
+                <a href="javascript:;">首页</a>
+                <a href="javascript:;">职位</a>
+                <a href="javascript:;">公司</a>
+                <a href="javascript:;">地区</a>
+                <a href="javascript:;">行业</a>
+                <a href="javascript:;" id="toRedGuide">红色指引</a>
+            </div>
+            <div class="auth-buttons">
+                <a href="dashborad.html" class="user-avatar">
+                    <img src="https://picsum.photos/id/64/40/40" alt="用户头像">
+                </a>
+                <button class="btn btn-outline" onclick="window.location.href='login.html'">登录</button>
+                <button class="btn btn-primary" onclick="window.location.href='register.html'">注册</button>
+            </div>
+        </div>
+    </div>
+</header>
+ <!--首页内容-->
+<section class="hero">
+    <div class="container">
+        <h1>红途职引，指引您的职业未来</h1>
+        <p>基于行业和地区导向的精准匹配，助您找到最适合的工作</p>
+        <div class="search-container">
+            <div class="search-tabs">
+                <div class="search-tab active">找工作</div>
+                <div class="search-tab">找公司</div>
+            </div>
+            <div class="search-box">
+                <div class="search-input-container">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="输入职位关键词、公司或行业">
+                </div>
+                <button class="search-btn"><i class="fas fa-search"></i> 搜索</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="filters">
+    <div class="container">
+        <div class="filter-container">
+            <div class="filter-group">
+                <div class="filter-title"><i class="fas fa-industry"></i>热门行业</div>
+                <div class="filter-options" id="industry-options"></div>
+            </div>
+            <div class="filter-group">
+                <div class="filter-title"><i class="fas fa-map-marker-alt"></i>热门地区</div>
+                <div class="filter-options" id="region-options"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <h2 class="section-title"><i class="fas fa-briefcase"></i>推荐职位</h2>
+    <div class="jobs-grid" id="jobs-container"></div>
+</section>
+
+<section class="cities">
+    <div class="container">
+        <h2 class="section-title"><i class="fas fa-city"></i>热门招聘城市</h2>
+        <div class="cities-grid">
+            <div class="city-card"><div class="city-image">北京</div><div class="city-content"><h3 class="city-name">北京</h3><p class="city-jobs">12,458个职位</p></div></div>
+            <div class="city-card"><div class="city-image">上海</div><div class="city-content"><h3 class="city-name">上海</h3><p class="city-jobs">10,326个职位</p></div></div>
+            <div class="city-card"><div class="city-image">深圳</div><div class="city-content"><h3 class="city-name">深圳</h3><p class="city-jobs">8,745个职位</p></div></div>
+            <div class="city-card"><div class="city-image">广州</div><div class="city-content"><h3 class="city-name">广州</h3><p class="city-jobs">7,632个职位</p></div></div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>关于我们</h3>
+                <p>红途职引是一家专注于行业和地区导向的专业招聘平台，致力于为求职者和企业提供高效、精准的招聘服务。</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>© 2025 红途职引招聘平台 - 所有权利保留</p>
+        </div>
+    </div>
+</footer>
+ <!--弹窗--> 
+<div class="modal-overlay" id="jobModal">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modalJobTitle">职位详情</h3>
+            <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="modal-body">
+            <div class="job-detail-main">
+                <div class="job-detail-item"><span class="detail-label">职位名称：</span><span class="detail-value" id="detailTitle"></span></div>
+                <div class="job-detail-item"><span class="detail-label">公司名称：</span><span class="detail-value" id="detailCompany"></span></div>
+                <div class="job-detail-item"><span class="detail-label">工作地点：</span><span class="detail-value" id="detailLocation"></span></div>
+                <div class="job-detail-item"><span class="detail-label">薪资范围：</span><span class="detail-value" id="detailSalary"></span></div>
+                <div class="job-detail-item"><span class="detail-label">工作经验：</span><span class="detail-value" id="detailExperience"></span></div>
+                <div class="job-detail-item"><span class="detail-label">学历要求：</span><span class="detail-value" id="detailEducation"></span></div>
+                <div class="job-detail-item"><span class="detail-label">所属行业：</span><span class="detail-value" id="detailIndustry"></span></div>
+                <div class="job-detail-item"><span class="detail-label">职位标签：</span><span class="detail-value" id="detailTags"></span></div>
+            </div>
+            <div class="website-info">
+                <h4 class="website-info-title"><i class="fas fa-globe"></i> 平台信息</h4>
+                <div class="website-info-content" id="websiteInfo"></div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-outline modal-cancel" id="modalCancel">取消</button>
+            <button class="btn btn-primary modal-confirm">确认申请</button>
+        </div>
+    </div>
+</div>
+ <!--红色指引板块 默认隐藏--> 
+<section id="redGuidePage">
+    <div class="red-hero">
+        <div class="container">
+            <h1>红色指引 · 计算机科技历程</h1>
+            <p>传承红色基因，走进中国计算机与网信事业的发展故事</p>
+        </div>
+    </div>
+
+    <div class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides"></div>
+        <button class="carousel-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+        <button class="carousel-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-indicators" id="carouselIndicators"></div>
+    </div>
+
+    <div class="red-guide-content">
+        <h2 class="section-title" style="color: #b91c1c; text-align: center; margin-bottom: 30px;"><i class="fas fa-flag"></i>计算机红色记忆</h2>
+        <div class="content-grid" id="storiesContainer"></div>
+    </div>
+</section>
+ <!--原有JS + 红色指引JS--> 
+<script src="Final_Version.js"></script>
+    <script src="redGuide.js"></script>
+</body>
+</html>

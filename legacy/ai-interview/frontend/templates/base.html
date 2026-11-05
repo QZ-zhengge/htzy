@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI面试系统</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
+    
+    <!-- Tailwind 配置 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a56db',
+                        secondary: '#9333ea',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
+                        dark: '#111827',
+                        light: '#f3f4f6'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .transition-all {
+                transition-property: all;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 300ms;
+            }
+            .shadow-lg {
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            }
+            .bg-gradient {
+                background: linear-gradient(135deg, theme('colors.primary'), theme('colors.secondary'));
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <i class="fa fa-comments text-primary text-2xl"></i>
+                    <span class="text-xl font-bold text-gray-800">AI面试系统</span>
+                </div>
+                
+                <!-- 导航链接 - 已登录 -->
+                {% if 'user_id' in session %}
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="{{ url_for('dashboard') }}" class="text-gray-700 hover:text-primary transition-all">仪表盘</a>
+                    <a href="{{ url_for('resume_page') }}" class="text-gray-700 hover:text-primary transition-all">简历管理</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-all">面试历史</a>
+                    <a href="#" class="text-gray-700 hover:text-primary transition-all">帮助中心</a>
+                </div>
+                
+                <!-- 用户菜单 -->
+                <div class="relative">
+                    <button id="user-menu-button" class="flex items-center space-x-2 text-gray-700 hover:text-primary transition-all">
+                        <span>{{ session['username'] }}</span>
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    
+                    <!-- 下拉菜单 -->
+                    <div id="user-dropdown" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-10 hidden">
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">个人资料</a>
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">设置</a>
+                        <a href="{{ url_for('logout') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">退出登录</a>
+                    </div>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+                {% else %}
+                <!-- 导航链接 - 未登录 -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <a href="{{ url_for('login_page') }}" class="text-gray-700 hover:text-primary transition-all">登录</a>
+                    <a href="{{ url_for('register_page') }}" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary/90 transition-all">注册</a>
+                </div>
+                
+                <!-- 移动端菜单按钮 -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-gray-700 hover:text-primary">
+                        <i class="fa fa-bars text-xl"></i>
+                    </button>
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- 移动端菜单 -->
+            <div id="mobile-menu" class="md:hidden mt-4 pb-2 hidden">
+                {% if 'user_id' in session %}
+                <a href="{{ url_for('dashboard') }}" class="block py-2 text-gray-700 hover:text-primary">仪表盘</a>
+                <a href="{{ url_for('resume_page') }}" class="block py-2 text-gray-700 hover:text-primary">简历管理</a>
+                <a href="#" class="block py-2 text-gray-700 hover:text-primary">面试历史</a>
+                <a href="#" class="block py-2 text-gray-700 hover:text-primary">帮助中心</a>
+                <a href="{{ url_for('logout') }}" class="block py-2 text-gray-700 hover:text-primary">退出登录</a>
+                {% else %}
+                <a href="{{ url_for('login_page') }}" class="block py-2 text-gray-700 hover:text-primary">登录</a>
+                <a href="{{ url_for('register_page') }}" class="block py-2 text-gray-700 hover:text-primary">注册</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    
+    <!-- 主内容区 -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+    
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">关于我们</h3>
+                    <p class="text-gray-400">AI面试系统致力于帮助求职者提升面试技能，为企业提供标准化面试评估工具。</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">快速链接</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">首页</a></li>
+                        <li><a href="#" class="hover:text-white">功能介绍</a></li>
+                        <li><a href="#" class="hover:text-white">帮助中心</a></li>
+                        <li><a href="#" class="hover:text-white">联系我们</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">联系方式</h3>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><i class="fa fa-envelope mr-2"></i> user@example.com</li>
+                        <li><i class="fa fa-phone mr-2"></i> 400-123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-gray-400">
+                <p>&copy; {{ current_year }} AI面试系统. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // 用户菜单下拉
+        document.getElementById('user-menu-button')?.addEventListener('click', function() {
+            const dropdown = document.getElementById('user-dropdown');
+            dropdown.classList.toggle('hidden');
+        });
+        
+        // 移动端菜单
+        document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // 点击其他地方关闭下拉菜单
+        document.addEventListener('click', function(event) {
+            const userMenu = document.getElementById('user-dropdown');
+            const userButton = document.getElementById('user-menu-button');
+            
+            if (userMenu && userButton && !userMenu.contains(event.target) && !userButton.contains(event.target)) {
+                userMenu.classList.add('hidden');
+            }
+        });
+        
+        // 设置当前年份
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.querySelector('footer .border-t p');
+            if (yearElement) {
+                const currentYear = new Date().getFullYear();
+                yearElement.textContent = `© ${currentYear} AI面试系统. 保留所有权利.`;
+            }
+        });
+        
+        // 显示消息提示
+        function showToast(message, type = 'success') {
+            // 创建提示元素
+            const toast = document.createElement('div');
+            toast.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-md shadow-lg transition-all transform translate-x-full opacity-0`;
+            
+            // 设置不同类型的样式
+            if (type === 'success') {
+                toast.classList.add('bg-green-500', 'text-white');
+            } else if (type === 'error') {
+                toast.classList.add('bg-red-500', 'text-white');
+            } else if (type === 'warning') {
+                toast.classList.add('bg-yellow-500', 'text-white');
+            } else {
+                toast.classList.add('bg-blue-500', 'text-white');
+            }
+            
+            // 设置内容
+            toast.textContent = message;
+            
+            // 添加到页面
+            document.body.appendChild(toast);
+            
+            // 显示提示
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            // 自动隐藏
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                
+                // 移除元素
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 300);
+            }, 3000);
+        }
+        
+        // API请求封装
+        async function apiRequest(url, method = 'GET', data = null) {
+            const options = {
+                method,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'same-origin'
+            };
+            
+            if (data && (method === 'POST' || method === 'PUT')) {
+                options.body = JSON.stringify(data);
+            }
+            
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(result.error || '请求失败');
+                }
+                
+                return result;
+            } catch (error) {
+                console.error('API请求错误:', error);
+                showToast(error.message, 'error');
+                throw error;
+            }
+        }
+    </script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

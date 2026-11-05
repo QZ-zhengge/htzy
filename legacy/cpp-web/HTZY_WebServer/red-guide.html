@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>红色指引 - 红途职引</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- 新增红色指引专属样式 -->
+    <style>
+        /* 红色指引页面核心样式 */
+        .red-guide-hero {
+            background: linear-gradient(135deg, #c02626 0%, #dc2626 100%);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+            .red-guide-hero h1 {
+                font-size: 42px;
+                margin-bottom: 15px;
+                text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+
+            .red-guide-hero p {
+                font-size: 18px;
+                max-width: 800px;
+                margin: 0 auto 20px;
+                opacity: 0.95;
+            }
+
+        /* 轮播图样式 */
+        .carousel-container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(192, 38, 38, 0.15);
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 450px;
+            position: relative;
+        }
+
+            .carousel-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 12px;
+            }
+
+        .carousel-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(185, 28, 28, 0.85));
+            color: white;
+            padding: 30px;
+            border-radius: 0 0 12px 12px;
+        }
+
+            .carousel-caption h3 {
+                font-size: 28px;
+                margin-bottom: 10px;
+            }
+
+            .carousel-caption p {
+                font-size: 16px;
+                max-width: 800px;
+                opacity: 0.9;
+            }
+
+        /* 轮播控制按钮 */
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            color: #b91c1c;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+
+            .carousel-btn:hover {
+                background: white;
+                color: #991b1b;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            }
+
+        .prev-btn {
+            left: 20px;
+        }
+
+        .next-btn {
+            right: 20px;
+        }
+
+        /* 轮播指示器 */
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+            .indicator.active {
+                background: white;
+                width: 30px;
+                border-radius: 6px;
+            }
+
+        /* 红色指引内容板块 */
+        .red-guide-content {
+            padding: 60px 0;
+            background-color: #fff;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .guide-card {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 30px;
+            transition: all 0.3s;
+        }
+
+            .guide-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(239, 68, 68, 0.1);
+                border-color: #f87171;
+            }
+
+        .guide-card-icon {
+            width: 60px;
+            height: 60px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        .guide-card h3 {
+            font-size: 22px;
+            color: #b91c1c;
+            margin-bottom: 15px;
+        }
+
+        .guide-card p {
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .red-guide-hero h1 {
+                font-size: 32px;
+            }
+
+            .carousel-slide {
+                height: 300px;
+            }
+
+            .carousel-caption h3 {
+                font-size: 20px;
+            }
+
+            .carousel-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 20px;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏（复用原有样式，保持一致性） -->
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <a href="index.html" class="logo"><i class="fas fa-road"></i>红途职引</a>
+                <div class="nav-links">
+                    <a href="index.html">首页</a>
+                    <a href="#">职位</a>
+                    <a href="#">公司</a>
+                    <a href="#">地区</a>
+                    <a href="#">行业</a>
+                    <a href="red-guide.html" style="color: #dc2626; font-weight: 600;">红色指引</a>
+                </div>
+                <div class="auth-buttons">
+                    <a href="dashborad.html" class="user-icon">
+                        <i class="fas fa-user-circle"></i>
+                        <span>张三</span>
+                    </a>
+                    <button class="btn btn-outline">登录</button>
+                    <button class="btn btn-primary">注册</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 红色指引头部 -->
+    <section class="red-guide-hero">
+        <div class="container">
+            <h1>红色指引 · 点亮职业征程</h1>
+            <p>传承红色基因，践行初心使命，为求职者提供有温度、有方向的职业指引，助力实现人生价值</p>
+        </div>
+    </section>
+
+    <!-- 红色指引轮播图 -->
+    <section class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides">
+            <!-- 轮播图1 -->
+            <div class="carousel-slide">
+                <img src="https://picsum.photos/id/1002/1200/450" alt="红色职业指引">
+                <div class="carousel-caption">
+                    <h3>红色精神 职业传承</h3>
+                    <p>以红色精神为指引，树立正确的职业价值观，在岗位上践行初心使命</p>
+                </div>
+            </div>
+            <!-- 轮播图2 -->
+            <div class="carousel-slide">
+                <img src="https://picsum.photos/id/1015/1200/450" alt="乡村振兴招聘">
+                <div class="carousel-caption">
+                    <h3>乡村振兴 就业帮扶</h3>
+                    <p>聚焦乡村振兴战略，提供基层就业岗位，助力农村人才发展</p>
+                </div>
+            </div>
+            <!-- 轮播图3 -->
+            <div class="carousel-slide">
+                <img src="https://picsum.photos/id/1039/1200/450" alt="红色教育基地">
+                <div class="carousel-caption">
+                    <h3>红色教育 职业成长</h3>
+                    <p>结合红色教育基地资源，打造职业素养提升课程，全方位赋能求职者</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 轮播控制按钮 -->
+        <button class="carousel-btn prev-btn" id="prevBtn">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn next-btn" id="nextBtn">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+        <!-- 轮播指示器 -->
+        <div class="carousel-indicators" id="carouselIndicators">
+            <div class="indicator active" data-index="0"></div>
+            <div class="indicator" data-index="1"></div>
+            <div class="indicator" data-index="2"></div>
+        </div>
+    </section>
+
+    <!-- 红色指引内容板块 -->
+    <section class="red-guide-content">
+        <div class="container">
+            <h2 class="section-title" style="color: #b91c1c;"><i class="fas fa-flag"></i>核心指引方向</h2>
+            <div class="content-grid">
+                <!-- 指引卡片1 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">
+                        <i class="fas fa-map-signs"></i>
+                    </div>
+                    <h3>红色职业价值观</h3>
+                    <p>弘扬爱岗敬业、无私奉献的红色职业精神，引导求职者树立正确的择业观、就业观、创业观，将个人发展融入国家发展大局。</p>
+                </div>
+                <!-- 指引卡片2 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>基层就业扶持</h3>
+                    <p>重点推荐基层岗位、乡村振兴相关职位，提供专项就业补贴和成长支持，鼓励青年人才到基层建功立业。</p>
+                </div>
+                <!-- 指引卡片3 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>红色技能培训</h3>
+                    <p>联合红色教育基地和专业机构，开展职业技能培训、红色文化研学等活动，提升求职者综合素养和就业竞争力。</p>
+                </div>
+                <!-- 指引卡片4 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>就业帮扶计划</h3>
+                    <p>针对退役军人、困难家庭毕业生、返乡创业人员等群体，提供一对一职业指导、岗位推荐、创业扶持等专属服务。</p>
+                </div>
+                <!-- 指引卡片5 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <h3>红色企业对接</h3>
+                    <p>整合红色文旅、红色教育、红色文创等领域优质企业资源，搭建求职者与红色产业企业的精准对接桥梁。</p>
+                </div>
+                <!-- 指引卡片6 -->
+                <div class="guide-card">
+                    <div class="guide-card-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>职业发展规划</h3>
+                    <p>结合红色文化精神，为求职者提供长期职业发展规划指导，助力实现职业目标与人生价值的统一。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚（复用原有样式） -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>关于我们</h3>
+                    <p>红途职引是一家专注于行业和地区导向的专业招聘平台，致力于为求职者和企业提供高效、精准的招聘服务。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weixin"></i></a>
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>© 2025 红途职引招聘平台 - 所有权利保留</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 轮播图交互脚本 -->
+    <script>
+        // 轮播图核心逻辑
+        const carouselSlides = document.getElementById('carouselSlides');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicators = document.querySelectorAll('.indicator');
+        let currentIndex = 0;
+        const slideCount = indicators.length;
+
+        // 切换轮播图函数
+        function goToSlide(index) {
+            // 边界处理
+            if (index < 0) index = slideCount - 1;
+            if (index >= slideCount) index = 0;
+
+            // 移动轮播容器
+            carouselSlides.style.transform = `translateX(-${index * 100}%)`;
+
+            // 更新指示器状态
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === index);
+            });
+
+            currentIndex = index;
+        }
+
+        // 下一张
+        function nextSlide() {
+            goToSlide(currentIndex + 1);
+        }
+
+        // 上一张
+        function prevSlide() {
+            goToSlide(currentIndex - 1);
+        }
+
+        // 绑定按钮事件
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        // 绑定指示器点击事件
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                goToSlide(index);
+            });
+        });
+
+        // 自动轮播
+        let autoPlayInterval = setInterval(nextSlide, 5000);
+
+        // 鼠标悬停暂停轮播
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+
+        // 鼠标离开恢复轮播
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoPlayInterval = setInterval(nextSlide, 5000);
+        });
+    </script>
+</body>
+</html>

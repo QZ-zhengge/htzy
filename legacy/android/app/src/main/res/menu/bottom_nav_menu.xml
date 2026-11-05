@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_chat"
+        android:icon="@android:drawable/ic_menu_send"
+        android:title="AI 聊天" />
+    <item
+        android:id="@+id/nav_browser"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        android:title="浏览器" />
+</menu>
